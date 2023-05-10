@@ -1,28 +1,70 @@
 //rafce
-import React from 'react'
+import React, { useRef } from 'react'
+//hook react-redux
+import {useDispatch, useSelector} from 'react-redux'
+import { addCommentAction, updateUserComment } from '../../../redux/reducers/appChatReducer';
+
 
 const DemoAppChat = (props) => {
 
+    const {arrComment,userComment} = useSelector(state => state.appChatReducer);
+    const dispatch = useDispatch();
 
-  return (
-    <form className='container'>
-        <h3>Demo chat</h3>
-        <div className='card'>
-            <div className='card-header'>
-                <div className='row'>
-                    <div className='col-2'>
-                        <img src="https://i.pravatar.cc?u=1" className='w-100' />
+    const handleSubmit = (e) => {
+        e.preventDefault();//chặn sự kiện reload trang
+        // console.log(userComment.current);
+        //Đưa dữ liệu form lên redux
+        const action = addCommentAction(userComment);
+        //Gửi dữ liệu lên reducer
+        dispatch(action);
+    }
+
+    const handleChange = (e) => {
+        const {id,value} = e.target;
+        //Đưa dữ liệu id và value lên redux
+        const action =updateUserComment({id,value});
+        //Gửi object có id và value lên redux
+        dispatch(action);
+    }
+    return (
+        <form className='container' onSubmit={handleSubmit}>
+            <h3>Demo chat</h3>
+            <div className='card'>
+                <div className='card-header'>
+                    {arrComment.map((comment,index) => {
+                        return  <div className='row' key={index}>
+                        <div className='col-2'>
+                            <img src={`https://i.pravatar.cc?u=${comment.name}`} style={{ height: 100 }} />
+                        </div>
+                        <div className='col-10'>
+                            <h3 className='text-danger'>{comment.name}</h3>
+                            <p>
+                                {comment.content}
+                            </p>
+                        </div>
                     </div>
-                    <div className='col-12'>
-                        <p></p>
+                    })}
+                   
+                </div>
+                <div className='card-body'>
+                    <div className='form-group'>
+                        <p>Name</p>
+                        <input id="name" value={userComment.name} className='form-control' onInput={handleChange}/>
+                    </div>
+                    <div className='form-group'>
+                        <p>Content</p>
+                        <input id="content" value={userComment.content} className='form-control' onInput={handleChange}/>
+                    </div>
+                    <div className='form-group'>
+                        <button className='btn btn-dark' type="submit">Send</button>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-  )
+        </form>
+    )
 }
 
 export default DemoAppChat
+
 
 

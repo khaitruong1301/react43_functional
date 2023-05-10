@@ -14,6 +14,9 @@ import UseRefDemo from './pages/Hooks/UseRefDemo/UseRefDemo';
 import { Provider } from 'react-redux'
 import { store } from './redux/configStore';
 import DemoAppChat from './pages/Hooks/ReduxHook/DemoAppChat';
+import Profile from './pages/Profile';
+import Detail from './pages/Detail';
+import Search from './pages/Search';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -30,6 +33,11 @@ root.render(
           <Route path="usememo" element={<UseMemoDemo />}></Route>
           <Route path="useref" element={<UseRefDemo />}></Route>
           <Route path="demo-chat" element={<DemoAppChat />}></Route>
+          <Route path="profile" element={<Profile />}></Route>
+          <Route path="detail" >
+              <Route path=':id' element={<Detail />}></Route>
+          </Route>
+          <Route path='search' element={<Search />} />
         </Route>
       </Routes>
     </BrowserRouter>
