@@ -17,6 +17,7 @@ import DemoAppChat from './pages/Hooks/ReduxHook/DemoAppChat';
 import Profile from './pages/Profile';
 import Detail from './pages/Detail';
 import Search from './pages/Search';
+import Register from './pages/Register';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -38,6 +39,7 @@ root.render(
               <Route path=':id' element={<Detail />}></Route>
           </Route>
           <Route path='search' element={<Search />} />
+          <Route path='register' element={<Register />} />
         </Route>
       </Routes>
     </BrowserRouter>
