@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { USER_LOGIN, getStorageJSON, http, saveStorageJSON } from '../../util/config';
-
+import {history} from '../../index';
 const initStateUserLogin = () => {
     let userLoginInit = {
         email:'',
@@ -62,6 +62,11 @@ export const loginActionApi = (userLogin) => { // {email:'',password:''}
 
             //Thành công thì lưu vào storage
             saveStorageJSON(USER_LOGIN,res.data.content);
+
+            //SAu khi đăng nhập thành công thì chuyển hướng trang sang profile
+
+            history.push('/profile');
+
         }catch(err) {
             alert(err.response?.data.message);
         }

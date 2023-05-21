@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 
 //Cấu hình react router dom
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, unstable_HistoryRouter as HistoryRouter , Routes, Route } from 'react-router-dom'
 import HomeTemplate from './templates/HomeTemplate';
 import Login from './pages/Login';
 import UseStateDemo from './pages/Hooks/UseStateDemo';
@@ -18,12 +18,18 @@ import Profile from './pages/Profile';
 import Detail from './pages/Detail';
 import Search from './pages/Search';
 import Register from './pages/Register';
-
+import Movie from './pages/Movie';
+import {createBrowserHistory} from 'history';
+//tạo ra 1 history tương tự useNavigate
+export const history = createBrowserHistory();
+//Cài đặt antd
+import 'antd/dist/reset.css';
+import 'index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <HistoryRouter history={history}>
       <Routes>
         <Route path="" element={<HomeTemplate />} >
           <Route index element={<Home />}></Route>
@@ -39,10 +45,11 @@ root.render(
               <Route path=':id' element={<Detail />}></Route>
           </Route>
           <Route path='search' element={<Search />} />
+          <Route path='movie' element={<Movie />} />
           <Route path='register' element={<Register />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   </Provider>
 
 );
